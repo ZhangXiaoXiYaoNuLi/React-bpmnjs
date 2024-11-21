@@ -7,7 +7,48 @@ import { EditOutlined } from "@ant-design/icons";
 const ElementForm = (props) => {
   const { businessObject, bpmnInstances, bpmnElement, id } = props;
 
-  const testAddSelfField = () => {};
+  const testAddSelfField = () => {
+    console.log("bpmnInstances.model =>", bpmnInstances.modeler);
+
+    // 若没有 额外属性标签，则创建，然后插入元素
+    let extension = bpmnElement.businessObject.get("extensionElements");
+
+    if (!!!extension) {
+      let elExtensionElements = bpmnInstances.moddle.create(
+        "bpmn:ExtensionElements",
+        { values: [] }
+      );
+      bpmnInstances.modeling.updateProperties(bpmnInstances.bpmnElement, {
+        extensionElements: elExtensionElements,
+      });
+    }
+
+    // 下面给该节点添加自定义属性
+    let body = bpmnInstances.moddle.create("flowable:TypeString", {
+      body: "1213",
+    });
+    let Field = bpmnInstances.moddle.create("flowable:Field", {
+      values: [body],
+      name: "type",
+    });
+
+    console.log("Field", Field);
+    updateElementExtensions(Field);
+  };
+
+  const updateElementExtensions = (element) => {
+    // 更新回扩展元素
+    const newElExtensionElements = bpmnInstances.moddle.create(
+      `bpmn:ExtensionElements`,
+      {
+        values: [element],
+      }
+    );
+    // 更新到元素上
+    bpmnInstances.modeling.updateProperties(bpmnInstances.bpmnElement, {
+      extensionElements: newElExtensionElements,
+    });
+  };
 
   return (
     <>

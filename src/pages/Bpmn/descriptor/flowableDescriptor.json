@@ -1,0 +1,37 @@
+{
+  "name": "Flowable",
+  "uri": "http://flowable.org/bpmn",
+  "prefix": "flowable",
+  "xml": {
+    "tagAlias": "lowerCase"
+  },
+  "associations": [],
+  "types": [
+    {
+      "name": "TypeString",
+      "superClass": ["Element"],
+      "properties": [
+        {
+          "name": "body",
+          "isBody": true,
+          "type": "String"
+        }
+      ]
+    },
+    {
+      "name": "Field",
+      "superClass": ["Element"],
+      "meta": {
+        "allowedIn": ["*"]
+      },
+      "properties": [
+        {
+          "name": "values",
+          "type": "TypeString",
+          "isMany": true
+        }
+      ]
+    }
+  ],
+  "emumerations": []
+}

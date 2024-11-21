@@ -6,6 +6,8 @@ import BpmData from "./BpmData";
 import Xml from "./xml";
 import "./index.less";
 
+import flowableModdleExtension from "./extension-moddle/flowable";
+import flowableModdleDescriptor from "./descriptor/flowableDescriptor.json";
 class BpmnMain extends Component {
   /**
    * react v16.3版本后生命周期
@@ -32,6 +34,8 @@ class BpmnMain extends Component {
         bpmn: new BpmnModeler({
           container: document.getElementById("canvas"),
           keyboard: { bindTo: window },
+          additionalModules: [flowableModdleExtension],
+          moddleExtensions: [flowableModdleDescriptor],
         }),
       },
       () => {
