@@ -3,6 +3,7 @@ import { Input, Radio, Select, Drawer, Button, Collapse } from "antd";
 import _ from "lodash";
 import styles from "./styles.less";
 import ElementBaseInfo from "../configItems/ElementBaseInfo";
+import ElementForm from "../configItems/ElementForm";
 
 const { Panel } = Collapse;
 
@@ -54,6 +55,18 @@ const Main = (props) => {
             id={elementId}
           ></ElementBaseInfo>
         </Panel>
+
+        {!!elementType &&
+          ["UserTask", "StartEvent", "Task"].indexOf(elementType) > -1 && (
+            <Panel header="表单配置" key="formPage">
+              <ElementForm
+                businessObject={elementBusinessObject}
+                bpmnInstances={bpmnInstances}
+                bpmnElement={bpmnElement}
+                id={elementId}
+              ></ElementForm>
+            </Panel>
+          )}
       </Collapse>
     </div>
   );
