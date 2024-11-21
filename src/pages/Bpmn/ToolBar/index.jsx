@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styles from "./index.less";
 import "./index.less";
 
+import xml2js from "xml2js";
 class BpmnToolBar extends Component {
   /**
    * react v16.3版本后生命周期
@@ -119,6 +120,19 @@ class BpmnToolBar extends Component {
     });
   };
 
+  consoleXml = () => {
+    this.props.bpmn.saveXML({ format: true }, (err, data) => {
+      console.log("xml =>", data);
+      let parser = new xml2js.Parser();
+      parser.parseString(data, (err, res) => {
+        if (res != null) {
+          console.log("jsonRes =>", res);
+          console.log("jsonObj =>", JSON.stringify(res));
+        }
+      });
+    });
+  };
+
   render() {
     return (
       <div className={styles.BpmnToolBar}>
@@ -212,6 +226,13 @@ class BpmnToolBar extends Component {
               onClick={this.onDownloadSvg}
             >
               <i className={styles.image} />
+            </button>
+          </li>
+
+          {/* 添加 xml 控制台输出 */}
+          <li className={styles.control}>
+            <button type="button" title="输出 XML" onClick={this.consoleXml}>
+              <i className={styles.download} />
             </button>
           </li>
         </ul>
