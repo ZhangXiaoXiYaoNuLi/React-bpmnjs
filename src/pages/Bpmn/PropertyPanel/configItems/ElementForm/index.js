@@ -50,6 +50,12 @@ const ElementForm = (props) => {
     });
   };
 
+  useEffect(() => {
+    // 测试自定义节点读取以及，回填表单
+    console.log("自定义节点 element =>", bpmnElement);
+    console.log("bpmnElementl.values", bpmnElement.values);
+  }, []);
+
   return (
     <>
       <Form.Item label="节点表单">
